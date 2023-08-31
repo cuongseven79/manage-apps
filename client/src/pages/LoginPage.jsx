@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-
-
-
+import axios from 'axios'
 
 const LoginPage = () => {
 
@@ -9,32 +7,29 @@ const LoginPage = () => {
   const [code, setCode] = useState('');
   const [showCode, setShowCode] = useState(null);
 
-
-  function handleOnChangePhone(e) {
-    e.preventDefault();
-    setPhone(e.target.value)
-  }
-  function handleOnChangeCode(e) {
-    e.preventDefault();
-    setCode(e.target.value)
-
-  }
-  function handleOnSubmit(e) {
+  async function handleOnSubmit(e) {
     e.preventDefault();
     setShowCode(true)
 
-    console.log(code, phone)
+    try {
+      await axios.post("http://localhost:3001/login", {
+        phone, code
+      })
+      setPhone('')
+      setCode('')
+    } catch (error) {
+      console.log("ERR login", error)
+    }
   }
 
-
   return (
-    <form onSubmit={handleOnSubmit} className='text-center m-2'>
+    <form onSubmit={handleOnSubmit} className='text-center m-2' action='/login'>
       <div className={`${showCode ? "hidden" : ""}`}>
         <span>Phone:</span>
         <input type="text"
           placeholder='Please Enter your phone number.'
           className='border'
-          onChange={handleOnChangePhone}
+          onChange={(e) => setPhone(e.target.value)}
         />
       </div>
       <div
@@ -44,7 +39,7 @@ const LoginPage = () => {
         <input type="text"
           placeholder='Please Enter your phone Code.'
           className="border"
-          onChange={handleOnChangeCode}
+          onChange={(e) => setCode(e.target.value)}
         />
       </div>
       <button type='submit'
