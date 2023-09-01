@@ -16,6 +16,6 @@ firebase.initializeApp({
   databaseURL: "https://manage-apps-857ed.firebaseio.com/",
 });
 const database = firebase.firestore();
-const User = database.collection("userInfor");
+const User = database.collection("UserInfor");
 
 module.exports = User;

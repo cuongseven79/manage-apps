@@ -1,6 +1,4 @@
 const express = require("express");
-const http = require("http");
-const twillo = require("twilio");
 const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -17,79 +15,70 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-function writeUserData(code, phone) {
-  app.post("/create", async (req, res) => {
-    try {
-      // const data = req.body;
-      await User.add(code, phone);
-      res.send({ messages: "Created Successful" });
-    } catch (error) {
-      console.log("ERROR is ", error);
-    }
-  });
-}
-function updateUserData(data) {
-  app.post("/update", async (req, res) => {
-    try {
-      const id = req.body.id;
-      delete id;
-      const data = req.body;
-      await User.doc(id).update(data);
-      res.send({ messages: "Updated" });
-    } catch (error) {
-      console.log("ERROR is ", error);
-    }
-  });
-}
-function getAllUserData() {
-  app.get("/", async (req, res) => {
-    const snapshot = await User.get();
-    const listData = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    res.send(listData);
-  });
-}
-function getCodeById(code) {
-  app.get("/", async (req, res) => {
-    const snapshot = await User.get();
-    const codeStored = snapshot.docs.map((doc) => doc.exists);
-  });
-}
+async function CreateNewAccessCode(phoneNumber) {
+  const newAccessCode = Math.floor(100000 + Math.random() * 900000).toString();
+  try {
+    const snapshot = await User.where("phoneNumber", "==", phoneNumber).get();
 
-app.post("/login", async (req, res) => {
-  let { code, phone } = req.body;
-  console.log(code, phone);
-
-  if (phone && !code) {
-    const verify_code = Math.floor(100000 + Math.random() * 900000);
-    writeUserData(verify_code, phone);
-    client.messages
-      .create({
-        from: process.env.FROM_PHONE_NUMBER,
-        to: process.env.TO_PHONE_NUMBER,
-        body: verify_code,
-      })
-      .then((messsage) => console.log(messsage.body));
-    return res.json({ messages: "success", verify_code });
+    if (!snapshot.empty) {
+      const docId = snapshot.docs[0].id;
+      await User.doc(docId).update({ accessCode: newAccessCode });
+    } else {
+      await User.add({ accessCode: newAccessCode, phoneNumber: phoneNumber });
+    }
+  } catch (error) {
+    console.error("Error at CreateNewAccessCode:", error);
   }
+  return newAccessCode;
+}
 
-  if (verifyCodes[phone] && code === verifyCodes[phone]) {
-    return console.log("success");
-  } else {
-    console.log(code, verifyCodes[phone]);
-    return console.log("failure");
+async function ValidateAccessCode(accessCode, phoneNumber) {
+  const snapshot = await User.get();
+  try {
+    const dataStored = snapshot.docs.find(
+      (doc) => doc.data().phoneNumber === phoneNumber
+    );
+    if (dataStored && dataStored.data().accessCode === accessCode) {
+      await User.doc(dataStored.id).update({ accessCode: "" });
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error at ValidateAccessCode:", error);
+  }
+}
+app.post("/login", async (req, res) => {
+  const { codeEntered, phoneEntered } = req.body;
+
+  try {
+    if (phoneEntered && !codeEntered) {
+      const newAccessCode = await CreateNewAccessCode(phoneEntered);
+      client.messages
+        .create({
+          from: process.env.FROM_PHONE_NUMBER,
+          to: process.env.TO_PHONE_NUMBER,
+          body: newAccessCode,
+        })
+        .then((messsage) => console.log(messsage.body));
+      return res.json({ newAccessCode });
+    }
+
+    const isLoggedIn = await ValidateAccessCode(codeEntered, phoneEntered);
+    if (isLoggedIn) {
+      console.log("Login successful");
+      return res.json({
+        messages: "Login successful",
+        phoneNumber: phoneEntered,
+      });
+    } else {
+      console.log("Login failed");
+      return res.json({ messages: "Login failed" });
+    }
+  } catch (error) {
+    res.status(500).send("Internal server error");
   }
 });
-
-// app.post("/verify", (req, res) => {
-//   if (twillo.validateRequest()) {
-//     return res.json({ messages: "success" });
-//   } else {
-//     return res.json({ messages: "failed" });
-//   }
-// });
 
 app.listen(PORT, () => {
   console.log("server is running");
