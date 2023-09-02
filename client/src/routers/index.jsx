@@ -1,8 +1,9 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-dom';
 import Sidebar from "../layout/Sidebar/index";
 import Dashboard from '../pages/Dashboard';
 import Account from "../pages/Account"
 import SearchBar from '../components/search-bar';
+
 
 const routes = createBrowserRouter([
     {
@@ -15,16 +16,12 @@ const routes = createBrowserRouter([
                 element: <Dashboard />,
                 handle: {
                     crumb: () => <SearchBar />,
-                    // heading: "Dashboard",
                 },
             },
             {
                 path: "/accounts",
                 element: <Account />,
-                handle: {
-                    crumb: () => <span>{"Accoi"}</span>,
-                    heading: "Account",
-                },
+
             }
         ]
     }
