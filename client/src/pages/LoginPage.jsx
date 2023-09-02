@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
 
   const [showCode, setShowCode] = useState(null);
   const inputPhoneRef = useRef(null)
   const inputCodeRef = useRef(null)
+  const navigate = useNavigate();
   async function handleOnSubmit(e) {
     e.preventDefault();
     const phoneEntered = inputPhoneRef.current?.value
@@ -18,7 +20,10 @@ const LoginPage = () => {
           console.log(res.data)
           let { messages, phoneNumber } = res.data
           if (messages && phoneNumber) {
+            navigate("/dashboard")
             localStorage.setItem("phoneNumber", phoneNumber)
+          } else {
+            localStorage.removeItem("phoneNumber", phoneNumber)
           }
         }).catch(error => {
           console.log(error)
