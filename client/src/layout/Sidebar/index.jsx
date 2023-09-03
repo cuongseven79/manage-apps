@@ -25,7 +25,7 @@ function CreatePostDialog({ isOpen, setIsOpen }) {
               alt=""
               width={40}
               height={40}
-              className='rounded-[50%] h-full'
+              className='rounded-[50%] h-full object-cover'
             />
           </span>
           <div className='flex flex-col '>
@@ -91,16 +91,16 @@ const App = () => {
     .filter((match) => Boolean(match.handle?.crumb))
     .map((match) => match.handle.crumb(match.data));
   return (
-    <section className='flex h-[100vh] w-[100vw] min-h-0 bg-white'>
+    <section className='flex h-[100vh] w-[100vw] bg-white'>
       {/* sidebar */}
-      <aside className="w-72 h-screen">
+      <aside className="w-72 h-screen ">
         <h1 className='p-10 text-[30px] font-[600] text-center'>Skilli Project</h1>
         <div className='w-full px-11'>
           <ul className=' text-slate-700 w-full '>{items}</ul>
         </div>
       </aside>
       {/* sub main */}
-      <section className="flex-1 flex flex-col bg-slate-50/75 rounded-[16px]">
+      <section className="flex-1 flex flex-col bg-slate-50/75 rounded-[16px] ">
         <div className="flex flex-col">
           {/* header */}
           <header className="bg-white py-11"></header>
@@ -115,7 +115,7 @@ const App = () => {
           {isOpenCreateModal && <CreatePostDialog isOpen={isOpenCreateModal} setIsOpen={setIsOpenCreateModal} />}
         </div>
         {/* main content pages */}
-        <section className='h-screen'>
+        <section className='overflow-auto'>
           <Outlet />
         </section>
       </section>

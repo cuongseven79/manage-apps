@@ -19,9 +19,9 @@ const Dashboard = ({
 }) => {
 
   return (
-    <div className=' px-10 flex justify-around bg-blue-100'>
-      {Array(3).fill(
-        <div className='bg-white w-80 h-auto m-6 rounded-[16px]'>
+    <div className='flex flex-wrap justify-evenly overflow-y-auto h-full'>
+      {Array(15).fill(
+        <div className='bg-white w-80  m-6 rounded-[16px] '>
           <div className='flex justify-between p-2'>
             <div className='flex gap-2'>
               <span>
@@ -30,7 +30,7 @@ const Dashboard = ({
                   alt=""
                   width={40}
                   height={40}
-                  className='rounded-[50%] h-full'
+                  className='rounded-[50%] h-full object-cover'
                 />
               </span>
               <div className='flex flex-col '>
