@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-d
 import Sidebar from "../layout/Sidebar/index";
 import Dashboard from '../pages/Dashboard';
 import Account from "../pages/Account"
-import SearchBar from '../components/search-bar';
+import SearchBar from '../components/SearchBar/index';
 
 
 const routes = createBrowserRouter([
