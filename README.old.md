@@ -18,6 +18,7 @@ Get Started
 
 - Account: <img width="1672" alt="Screen Shot 2023-09-04 at 7 32 22 PM" src="https://github.com/cuongseven79/manage-apps/assets/101336112/2e86c59a-9773-47eb-94d6-3577e6fa78a1">
 
-- 
+- Firebase:  <img width="1676" alt="Screen Shot 2023-09-04 at 7 34 06 PM" src="https://github.com/cuongseven79/manage-apps/assets/101336112/910120eb-bfe1-4ead-a253-938b9a9a52cf">
+
 
 
