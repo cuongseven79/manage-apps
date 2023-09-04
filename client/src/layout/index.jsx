@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Link, Outlet, useMatches } from 'react-router-dom';
-import Breadcrumb from '../../components/Breadcumb/index';
-import icAccount from "../../assets/icons/ic-account.svg"
-import icPost from "../../assets/icons/ic-post.svg"
-import icSignOut from "../../assets/icons/ic-signout.svg"
-import CreatePostDialog from "../../components/PostDialog/CreatePost"
+import Breadcrumb from '../components/Breadcumb/index';
+import icAccount from "../assets/icons/ic-account.svg"
+import icPost from "../assets/icons/ic-post.svg"
+import icSignOut from "../assets/icons/ic-signout.svg"
 
 function getItem(label, icon, link = "/errors") {
   return (
@@ -20,12 +19,11 @@ function getItem(label, icon, link = "/errors") {
 }
 
 const items = [
-  getItem("All posts", icPost, "/"),
-  getItem("Accounts", icAccount, "/account"),
-  getItem(<span className={"text-action-red"}>{"Sign Out"}</span>, icSignOut),
+  getItem("All posts", icPost, "/dashboard"),
+  getItem("Accounts", icAccount, "/accounts"),
+  getItem(<span>Sign Out</span>, icSignOut, "/"),
 ];
-const App = () => {
-  let [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+const Layout = () => {
 
   let matches = useMatches();
   let crumbs = matches
@@ -44,16 +42,11 @@ const App = () => {
       <section className="flex-1 flex flex-col bg-slate-50/75 rounded-[16px] ">
         <div className="flex flex-col">
           {/* header */}
-          <header className="bg-white py-11"></header>
+          <header className="bg-white py-10"></header>
           {/* breadcumb */}
-          <div className="h-full flex justify-between p-8 ">
+          <div className="h-full px-24 py-6 ">
             <Breadcrumb crumbs={crumbs} />
-            <button
-              className='hover:bg-blue-700 bg-[#2374E1] rounded-[10px] p-4 px-10 text-white '
-              onClick={() => setIsOpenCreateModal(true)}
-            >Create A Post</button>
           </div>
-          {isOpenCreateModal && <CreatePostDialog isOpen={isOpenCreateModal} setIsOpen={setIsOpenCreateModal} />}
         </div>
         {/* main content pages */}
         <section className='overflow-auto'>
@@ -64,4 +57,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default Layout;

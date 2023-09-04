@@ -2,6 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import icFacebook from '../../assets/icons/ic-facebook.svg'
 import icInstagram from '../../assets/icons/ic-instagram.svg'
 import icTwitter from '../../assets/icons/ic-twitter.svg'
+
+
+export function ButtonCreate() {
+    let [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+    return (
+        <div >
+            <button
+                className='hover:bg-blue-700 bg-[#2374E1] rounded-[10px] p-4 px-10 text-white'
+                onClick={() => setIsOpenCreateModal(true)}>
+                Create A Post
+            </button>
+            {isOpenCreateModal && <CreatePostDialog isOpen={isOpenCreateModal} setIsOpen={setIsOpenCreateModal} />}
+        </div>
+    )
+}
 function Message({ message, onMessage }) {
     const inputMessageRef = useRef(null);
 

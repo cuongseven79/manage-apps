@@ -1,8 +1,8 @@
 import React from 'react'
 import icSearch from "../../assets/icons/ic-search.svg"
 
-const SearchBar = ({ onClick, onChange }) => {
 
+const SearchBar = ({ onClick, onChange }) => {
     return (
         <div className=''>
             <div className='relative gap-6 flex justify-around items-center'>

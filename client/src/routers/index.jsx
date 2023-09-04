@@ -1,28 +1,33 @@
-import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-dom';
-import Sidebar from "../layout/Sidebar/index";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from "../layout/index";
 import Dashboard from '../pages/Dashboard';
 import Account from "../pages/Account"
 import SearchBar from '../components/SearchBar/index';
+import LoginPage from '../pages/LoginPage';
+import { ButtonCreate } from '../components/PostDialog/CreatePost';
+import DashBoardBreadcumb from '../components/Breadcumb/DashBoardBreadcumb';
 
 
 const routes = createBrowserRouter([
     {
         path: "/",
-        element: <Sidebar />,
+        element: <LoginPage />,
+    },
+    {
+        element: <Layout />,
         errorElement: <p>Error</p>,
         children: [
             {
-                path: "/",
+                path: "/dashboard",
                 element: <Dashboard />,
                 handle: {
-                    crumb: () => <SearchBar />,
+                    crumb: () => <DashBoardBreadcumb />
                 },
             },
             {
                 path: "/accounts",
                 element: <Account />,
-
-            }
+            },
         ]
     }
 ]);

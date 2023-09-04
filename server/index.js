@@ -48,7 +48,7 @@ async function ValidateAccessCode(accessCode, phoneNumber) {
     console.error("Error at ValidateAccessCode:", error);
   }
 }
-app.post("/login", async (req, res) => {
+app.post("/", async (req, res) => {
   const { codeEntered, phoneEntered } = req.body;
 
   try {
