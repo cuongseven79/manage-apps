@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/manage-apps/static/css/main.e6a231fc.css",
+    "main.js": "/manage-apps/static/js/main.48853595.js",
+    "static/media/ic-instagram.svg": "/manage-apps/static/media/ic-instagram.062561eee027aa79c00be6c2a842c46f.svg",
+    "static/media/ic-heart.svg": "/manage-apps/static/media/ic-heart.e0c727046ba68e9896bc282b9b0a520b.svg",
+    "static/media/ic-signout.svg": "/manage-apps/static/media/ic-signout.3576dd37a8ae8c88f0bf01ca5d6737dd.svg",
+    "static/media/ic-dot.svg": "/manage-apps/static/media/ic-dot.14a67d4e5c7f167cac2c9300a7c9b154.svg",
+    "static/media/ic-comment.svg": "/manage-apps/static/media/ic-comment.43716bbcd53aefe2fbd617fa4af302e6.svg",
+    "static/media/ic-post.svg": "/manage-apps/static/media/ic-post.253718e1463e5687087ded6be82c35d0.svg",
+    "static/media/ic-bookmark.svg": "/manage-apps/static/media/ic-bookmark.b12a6e70d68987e07ff7dd78ce2b93b2.svg",
+    "index.html": "/manage-apps/index.html",
+    "static/media/ic-twitter.svg": "/manage-apps/static/media/ic-twitter.add34c6f6e5a865dbcb5e12128d1e4ab.svg",
+    "static/media/ic-facebook.svg": "/manage-apps/static/media/ic-facebook.9d964eabbf83c1596f550d50caef9b30.svg",
+    "static/media/ic-search.svg": "/manage-apps/static/media/ic-search.12668afacdb131c6417ebdc50e574efa.svg",
+    "static/media/ic-account.svg": "/manage-apps/static/media/ic-account.c92dcd5525d488e2e6b3fb304c43ed6b.svg",
+    "main.e6a231fc.css.map": "/manage-apps/static/css/main.e6a231fc.css.map",
+    "main.48853595.js.map": "/manage-apps/static/js/main.48853595.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6a231fc.css",
+    "static/js/main.48853595.js"
+  ]
+}
