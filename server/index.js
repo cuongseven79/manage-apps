@@ -48,16 +48,33 @@ async function ValidateAccessCode(accessCode, phoneNumber) {
     console.error("Error at ValidateAccessCode:", error);
   }
 }
+async function ValidatePassword(password, phoneNumber) {
+  const snapshot = await User.get();
+  try {
+    const dataStored = snapshot.docs.find(
+      (doc) => doc.data().phoneNumber === phoneNumber
+    );
+    if (dataStored && dataStored.data().password === password) {
+      return true;
+    } else {
+      await User.add({ password: password, phoneNumber: phoneNumber });
+      return false;
+    }
+  } catch (error) {
+    console.error("Error at ValidateAccessCode:", error);
+  }
+}
+
 app.get("/", (req, res) => {
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
   res.json({ fullUrl });
   console.log(fullUrl);
 });
 app.post("/", async (req, res) => {
-  const { codeEntered, phoneEntered } = req.body;
-
+  const { codeEntered, phoneEntered, passwordEntered } = req.body;
+  console.log("code,phone,pass", codeEntered, phoneEntered, passwordEntered);
   try {
-    if (phoneEntered && !codeEntered) {
+    if (phoneEntered && !codeEntered && !passwordEntered) {
       const newAccessCode = await CreateNewAccessCode(phoneEntered);
       client.messages
         .create({
@@ -68,9 +85,14 @@ app.post("/", async (req, res) => {
         .then((messsage) => console.log(messsage.body));
       return res.json({ newAccessCode });
     }
+    
+    const isLogInByCode = await ValidateAccessCode(codeEntered, phoneEntered);
+    const isLogInByPassword = await ValidatePassword(
+      passwordEntered,
+      phoneEntered
+    );
 
-    const isLoggedIn = await ValidateAccessCode(codeEntered, phoneEntered);
-    if (isLoggedIn) {
+    if (isLogInByCode || isLogInByPassword) {
       console.log("Login successful");
       return res.json({
         messages: "Login successful",
@@ -78,7 +100,9 @@ app.post("/", async (req, res) => {
       });
     } else {
       console.log("Login failed");
-      return res.json({ messages: "Login failed" });
+      return res.json({
+        messages: "Login failed",
+      });
     }
   } catch (error) {
     res.status(500).send("Internal server error");
