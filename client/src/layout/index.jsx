@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, Outlet, useMatches } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Link, Outlet, useLocation, useMatches, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcumb/index';
 import icAccount from "../assets/icons/ic-account.svg"
 import icPost from "../assets/icons/ic-post.svg"
@@ -24,6 +24,19 @@ const items = [
   getItem(<span>Sign Out</span>, icSignOut, "/"),
 ];
 const Layout = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+
+  useEffect(() => {
+    const phoneNumberLocal = localStorage.getItem("phoneNumber")
+    console.log("pathname:", location.pathname)
+    if (location.pathname === '/dashboard') {
+      if (!phoneNumberLocal) {
+        navigate("/")
+      }
+    }
+  }, [])
 
   let matches = useMatches();
   let crumbs = matches

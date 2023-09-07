@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FacebookLoginComponent from '../components/Facebook/index';
 const LoginPage = () => {
   console.log("LoginPage")
@@ -8,6 +8,21 @@ const LoginPage = () => {
   const inputPhoneRef = useRef(null)
   const inputCodeRef = useRef(null)
   const navigate = useNavigate();
+  const location = useLocation();
+
+
+
+  const phoneNumberLocal = localStorage.getItem("phoneNumber")
+
+  if (location.pathname === '/') {
+    if (phoneNumberLocal) {
+      console.log("YES", phoneNumberLocal)
+      localStorage.removeItem("phoneNumber")
+    } else {
+      console.log("NO", phoneNumberLocal)
+    }
+  }
+
 
   async function handleOnSubmit(e) {
     e.preventDefault();
@@ -15,21 +30,21 @@ const LoginPage = () => {
     const codeEntered = inputCodeRef.current?.value
     setShowCode(true)
     try {
-      await axios.post("http://localhost:3001/", {
+      const response = await axios.post("http://localhost:3001/", {
         codeEntered, phoneEntered
       })
-        .then(res => {
-          console.log(res.data)
-          let { messages, phoneNumber } = res.data
-          if (messages && phoneNumber) {
-            navigate("/dashboard")
-            localStorage.setItem("phoneNumber", phoneNumber)
-          } else {
-            localStorage.removeItem("phoneNumber", phoneNumber)
-          }
-        }).catch(error => {
-          console.log(error)
-        })
+      let { data } = response
+      let { fullUrl, messages, phoneNumber } = data;
+
+      console.log(data)
+
+      if (messages && phoneNumber) {
+        navigate("/dashboard")
+        localStorage.setItem("phoneNumber", phoneNumber)
+      } else {
+        localStorage.removeItem("phoneNumber", phoneNumber)
+      }
+      console.log("Full URL from server:", fullUrl);
     } catch (error) {
       console.log("ERR login", error)
     }

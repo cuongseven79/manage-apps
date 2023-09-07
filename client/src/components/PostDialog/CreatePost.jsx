@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import icFacebook from '../../assets/icons/ic-facebook.svg'
 import icInstagram from '../../assets/icons/ic-instagram.svg'
 import icTwitter from '../../assets/icons/ic-twitter.svg'
