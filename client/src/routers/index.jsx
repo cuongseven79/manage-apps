@@ -1,10 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from "../layout/index";
-import Dashboard from '../pages/Dashboard';
-import Account from "../pages/Account"
-import SearchBar from '../components/SearchBar/index';
+import Dashboard from '../pages/dashboard/Dashboard';
+import Account from "../pages/account/Account"
 import LoginPage from '../pages/LoginPage';
-import { ButtonCreate } from '../components/PostDialog/CreatePost';
 import DashBoardBreadcumb from '../components/Breadcumb/DashBoardBreadcumb';
 
 

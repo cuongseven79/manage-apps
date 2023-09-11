@@ -1,7 +1,8 @@
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import icFacebook from '../../assets/icons/ic-facebook.svg'
 import icInstagram from '../../assets/icons/ic-instagram.svg'
 import icTwitter from '../../assets/icons/ic-twitter.svg'
+import icClose from '../../assets/icons/ic-close.svg'
 
 
 export function ButtonCreate() {
@@ -42,13 +43,9 @@ function CreatePostDialog({ isOpen, setIsOpen }) {
     const [messageFacebook, setMessageFacebook] = useState('')
     const [messageInstagram, setMessageInstagram] = useState('')
     const [messageTwitter, setMessageTwitter] = useState('')
-
     const [appInfor, setAppInfor] = useState({ appName: "Original", appIndex: null })
-
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
-
-
     const items = [
         { name: 'Facebook', icon: icFacebook, checked: isAddFacebook },
         { name: 'Instagram', icon: icInstagram, checked: isAddInstagram },
@@ -87,14 +84,12 @@ function CreatePostDialog({ isOpen, setIsOpen }) {
                 <div className=" flex w-full flex-row items-center justify-between border-b p-[16px] text-xl">
                     <span className="font-[500]">Create a post</span>
                     <button onClick={() => setIsOpen(false)}>
-                        <p className="p-1 hover:rounded-md hover:bg-[#8278ED]/10">X</p>
+                        <img src={icClose} alt="" />
                     </button>
                 </div>
                 <form onSubmit={handleSubmit} className="w-full mb-4 ">
                     <div className='w-full h-full flex gap-3'>
-                        <div
-                            className={`${appInfor.appIndex === null ? 'bg-blue-100' : ''} flex items-center  hover:bg-blue-200 rounded-[10px] p-2 gap-2`}
-                            onClick={() => toggleItem("Original", null)}>
+                        <div className={`${appInfor.appIndex === null ? 'bg-blue-100' : ''} flex items-center  hover:bg-blue-200 rounded-[10px] p-2 gap-2`} onClick={() => toggleItem("Original", null)}>
                             <button type="button">Original</button>
                         </div>
                         {items.map((item, index) => (
@@ -147,12 +142,8 @@ function CreatePostDialog({ isOpen, setIsOpen }) {
                         />
                     </div>
                     <div className="p-x-[10px] flex w-full items-center border-t p-2 text-xl"></div>
-                    <button
-                        type="submit"
-                        className="hover:bg-blue-700 bg-[#2374E1] w-full rounded-[10px] py-3 text-white"
-                    >Create</button>
+                    <button type="submit" className="hover:bg-blue-700 bg-[#2374E1] w-full rounded-[10px] py-3 text-white">Create</button>
                 </form>
-
             </div>
         </div>
     );

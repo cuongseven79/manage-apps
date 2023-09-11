@@ -1,8 +1,8 @@
 import React from 'react'
-import icHeart from '../assets/icons/ic-heart.svg'
-import icComment from '../assets/icons/ic-comment.svg'
-import icBookMark from '../assets/icons/ic-bookmark.svg'
-import icDot from '../assets/icons/ic-dot.svg'
+import icHeart from '../../assets/icons/ic-heart.svg'
+import icComment from '../../assets/icons/ic-comment.svg'
+import icBookMark from '../../assets/icons/ic-bookmark.svg'
+import icDot from '../../assets/icons/ic-dot.svg'
 
 const Dashboard = () => {
 
